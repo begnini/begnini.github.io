@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.x.axis path {
+  display: none;
+}
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 720 - margin.left - margin.right,
+    height = 330 - margin.top - margin.bottom;
+
+var x0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var x1 = d3.scale.ordinal();
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>% Ataques:</strong> <span style='color:red'>" + (d.value * 100.0).toFixed(2) + "</span>";
+  })
+
+var color = d3.scale.category20();
+
+var xAxis = d3.svg.axis()
+    .scale(x0)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".02%"));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+data = {
+  labels: ['China', 'EUA', 'Brasil', 'Alemanha', 'Hong Kong', 'Koreia', 'India', 'Russia', 'Holanda', 'França'],
+  series: [{
+    label: '2012',
+    values: [0.2464, 0.1740, 0.0814, 0.0274, 0.006235, 0.034009, 0.025436, 0.021964, 0.013816, 0.013320]
+  },
+  {
+    label: '2013',
+    values: [0.307911, 0.164308, 0.060608, 0.041005, 0.011194, 0.028999, 0.013456, 0.012934, 0.014441, 0.020125]
+  },
+  {
+    label: '2014',
+    values: [0.747427, 0.055829, 0.011953, 0.025773, 0.006423, 0.014012, 0.008152, 0.010512, 0.004927, 0.007932]
+  },
+  {
+    label: '2015',
+    values: [0.462728, 0.123585, 0.028699, 0.025696, 0.055713, 0.021628, 0.030963, 0.017915, 0.024439, 0.016436]
+  }]
+}
+
+  var years = ['2012', '2013', '2014', '2015'];
+
+newData = []
+
+for (i = 0; i < data.labels.length; i++) {
+  for (j = 0; j < years.length; j++) {
+    country = data.labels[i];
+    year    = years[j]
+    value   = data.series[j].values[i]
+    newData.push({
+      country: country,
+      year: year,
+      value: value
+    });
+  }
+}
+
+  x0.domain(data.labels.map(function(d) { return d; }));
+  x1.domain(years).rangeRoundBands([0, x0.rangeBand()]);
+  y.domain([0, 1]); //d3.max(data.series, function(d) { return d3.max(d.values, function(d) { return d; }); })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("% de ataques por ano");
+
+  var state = svg.selectAll(".state")
+      .data(newData)
+    .enter().append("g")
+      .attr("class", "state")
+      .attr("transform", function(d) { return "translate(" + x0(d.country) + ",0)"; });
+
+  state.selectAll("rect")
+      .data(function(d) { return newData.filter(function (d2) { return d2.country == d.country; }); })
+    .enter().append("rect")
+      .attr("width", x1.rangeBand())
+      .attr("x", function(d) { return x1(d.year); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .style("fill", function(d) { return color(d.year); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
+  var legend = svg.selectAll(".legend")
+      .data(years.slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+</script>

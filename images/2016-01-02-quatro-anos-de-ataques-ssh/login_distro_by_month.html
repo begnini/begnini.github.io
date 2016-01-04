@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script>
+
+var margin = {top: 40, right: 20, bottom: 60, left: 40},
+    width  = 720 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
+
+var formatPercent = d3.format(".0");
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    //.tickFormat(formatPercent);
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Ataques:</strong> <span style='color:red'>" + d.value + "</span>";
+  })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+data = [
+{'month': '2012-01', 'value': 0},
+{'month': '2012-02', 'value': 0},
+{'month': '2012-03', 'value': 0},
+{'month': '2012-04', 'value': 30},
+{'month': '2012-05', 'value': 0},
+{'month': '2012-06', 'value': 0},
+{'month': '2012-07', 'value': 0},
+{'month': '2012-08', 'value': 0},
+{'month': '2012-09', 'value': 0},
+{'month': '2012-10', 'value': 0},
+{'month': '2012-11', 'value': 0},
+{'month': '2012-12', 'value': 6},
+{'month': '2013-01', 'value': 45},
+{'month': '2013-02', 'value': 0},
+{'month': '2013-03', 'value': 10},
+{'month': '2013-04', 'value': 46},
+{'month': '2013-05', 'value': 0},
+{'month': '2013-06', 'value': 0},
+{'month': '2013-07', 'value': 28},
+{'month': '2013-08', 'value': 0},
+{'month': '2013-09', 'value': 18},
+{'month': '2013-10', 'value': 15},
+{'month': '2013-11', 'value': 36},
+{'month': '2013-12', 'value': 74},
+{'month': '2014-01', 'value': 4},
+{'month': '2014-02', 'value': 16},
+{'month': '2014-03', 'value': 38},
+{'month': '2014-04', 'value': 31},
+{'month': '2014-05', 'value': 20},
+{'month': '2014-06', 'value': 36},
+{'month': '2014-07', 'value': 161},
+{'month': '2014-08', 'value': 8},
+{'month': '2014-09', 'value': 26},
+{'month': '2014-10', 'value': 57},
+{'month': '2014-11', 'value': 24},
+{'month': '2014-12', 'value': 583},
+{'month': '2015-01', 'value': 45},
+{'month': '2015-02', 'value': 66},
+{'month': '2015-03', 'value': 4},
+{'month': '2015-04', 'value': 0},
+{'month': '2015-05', 'value': 536},
+{'month': '2015-06', 'value': 52},
+{'month': '2015-07', 'value': 18},
+{'month': '2015-08', 'value': 1410},
+{'month': '2015-09', 'value': 382},
+{'month': '2015-10', 'value': 292},
+{'month': '2015-11', 'value': 82},
+{'month': '2015-12', 'value': 91},
+]
+
+  x.domain(data.map(function(d) { return d.month; }));
+  y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)" );
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Ataques");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.month); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+
+function type(d) {
+  d.frequency = +d.frequency;
+  return d;
+}
+
+</script>
