@@ -133,6 +133,7 @@ Os ataques com usuários padrão dos roteadores desenhados abaixo. A partir de S
 <iframe src="/images/2016-01-02-quatro-anos-de-ataques-ssh/login_router_by_month.html" width="100%" height="350" seamless frameBorder="0" scrolling="no"></iframe>
 
 Interessante é olhar a origem de ataques usando esses logins. A China não é fica mais em primeiro lugar e os ataques são bem distribuidos entre paises do primeiro mundo.
+Isso se deve principalmente porque esses roteadores são mais comuns em países do primeiro mundo.
 
 <iframe src="/images/2016-01-02-quatro-anos-de-ataques-ssh/router_by_country.html" width="100%" height="350" seamless frameBorder="0" scrolling="no"></iframe>
 
@@ -152,6 +153,7 @@ Outra coisa interessante são as tentativas de login das palavras espanholas, a 
 
 <iframe src="/images/2016-01-02-quatro-anos-de-ataques-ssh/spanish_by_country.html" width="100%" height="350" seamless frameBorder="0" scrolling="no"></iframe>
 
+Isso mostra claramente que, quando um login é bem sucedido numa rede (um login espanhol tem mais chance de ter sucesso numa rede espanhola, um login chines numa rede chinesa), o bot tenta esse login de novo em outras redes.
 
 ### Conclusão
 
