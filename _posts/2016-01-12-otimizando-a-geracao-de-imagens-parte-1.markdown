@@ -13,7 +13,7 @@ O sistema, por sua vez, gera vários formatos de arquivos para visualização e 
 
 A ideia de revisitar esses processamentos foi por eles serem os maiores consumidores de CPU e devido a percepção que o sistema demora demais para gerar essas imagens, enquanto outros sistemas na web (gmail, flickr) geram quase instantaneamente. As máquinas servidoras são bem parrudas para esse tipo de serviço (cada servidor tem 2 processadores Intel Xeon E5-2650, 64 GB de RAM), por isso esses processamentos não deveriam demorar tanto.
 
-Esse post eu irei dividir em 3 partes para não ficar muito massante. Essa primeira parte fala sobre geração de thumbnails.
+Esse post eu irei dividir em 3 partes para não ficar muito maçante. Essa primeira parte fala sobre geração de thumbnails.
 
 
 ## Thumbnails
@@ -28,7 +28,7 @@ Nesse comando pega-se um arquivo jpeg na sua resolução original e o transforma
 
 ### Usando Filtros
 
-Estudando o graphicsmagick, descobri que esse comando esconde um parâmetro muito importante, o `-filter`. Sem ele, o GraphicsMagick escolhe o filtro mais apropriado para uma qualidade boa sem consumir muita CPU. Mudando o filtro usado, é possível economizar CPU perdendo um pouco de qualidade no resultado final.
+Estudando o GraphicsMagick, descobri que esse comando esconde um parâmetro muito importante, o `-filter`. Sem ele, o GraphicsMagick escolhe o filtro mais apropriado para uma qualidade boa sem consumir muita CPU. Mudando o filtro usado, é possível economizar CPU perdendo um pouco de qualidade no resultado final.
 
 Para estabelecer os tempos de processamento, foram rodadas 3 vezes o comando abaixo, variando apenas o filtro:
 
@@ -44,7 +44,7 @@ em um diretório com 50 imagens com média de tamanho de 2500x3300 pixels cada e
 
 <iframe src="/images/2016-01-12-otimizando-a-geracao-de-imagens-parte-1/filters.html" width="100%" height="340" seamless frameBorder="0" scrolling="no"></iframe>
 
-O primeiro tempo é o tempo de processamento atual do sistema, sem filtro algum, levando uma média de 1500ms de processamento por imagem para gerar um thumbnail. Conforme o filtro, houve um ganho bom de tempo de processamento, com o Point sendo mais de 2 vezes mais rapido que o atual. Mas como fica a qualidade desses thumbs para cada filtro?
+O primeiro tempo é o tempo de processamento atual do sistema, sem filtro algum, levando uma média de 1500ms de processamento por imagem para gerar um thumbnail. Conforme o filtro, houve um ganho bom de tempo de processamento, com o Point sendo mais de 2 vezes mais rápido que o atual. Mas como fica a qualidade desses thumbs para cada filtro?
 
 Abaixo estão as imagens geradas com cada um dos filtros para comparar a qualidade, as imagens estão na mesma ordem do gráfico (clique para ver a imagem com 300 pixels):
 
