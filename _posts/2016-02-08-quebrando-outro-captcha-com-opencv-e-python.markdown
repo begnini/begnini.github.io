@@ -383,8 +383,6 @@ As estatísticas dos gráficos acima estão na tabela abaixo:
 | **Superfície** | 258.0   | 470.16  | 710.06        | 26     | 4505   | 3755    |
 
 
-<br/>
-
 Primeiramente olhando pro tamanho final, dá pra perceber que algo foi perdido. Deveriam ter quatro mil imagens (quatro letras em cada uma das mil imagens) e tem apenas 3.755. Essas letras provavelmente grudaram-se com outras. Olhando as estatísticas de **X** e da **Largura** dos bounding boxes dá pra ver bem isso.
 
 Explicando melhor, não tem como ter uma letra com largura de 148 pixels se a imagem inteira tem 150 pixels. As letras mais largas (W e M) tem pouco mais de 30 pixels de largura. Outra coisa que dá pra perceber é a distância entre as letras, o desvio padrão de **X** diz isso.
@@ -431,7 +429,6 @@ Abaixo estão os resultados para cada uma das características:
 | **Área**       | 560  | 702 | 1050.0 | 490.0 | 21     | 1785.00 |
 | **Superfície** | 170  | 258 | 392.5  | 222.5 | 26     | 726.25  |
 
-<br />
 
 Analisando um por um dos números:
 
@@ -485,8 +482,6 @@ Agora, filtrando os dados e removendo os outliers, as estatísticas ficaram assi
 | **Área**       |  732.09   | 236.96        | 80     | 1716   | 2692
 | **Superfície** |  261.81   | 102.91        | 36     | 721    | 2692
 
-
-<br />
 
 Como esperado, o desvio padrão de todo mundo caiu, mas infelizmente mais dados foram jogados fora. Agora só tem 2692 letras (67% do total) para classificar.
 
@@ -770,9 +765,9 @@ Rodando para cada um dos métodos de comparação, o resultado foi o seguinte:
 | **TM_CCOEFF**         | 324 (81%)      | 39 (39%)        |
 | **TM_CCOEFF_NORMED**  | **384 (96%)**  | **84 (84%)**    |
 
-<br/>
 
 O melhor método de comparação foi o **TM_CCOEFF_NORMED**, acertando 84% dos captchas e 96% das letras. Como cada template tem tamanho variável, os métodos não normalizados tiveram um desempenho sofrível.
+
 
 
 ### Conclusão
