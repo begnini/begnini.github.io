@@ -44,7 +44,7 @@ image = cv2.imread('a.png')
 color = 255 * 3
 
 # pega as dimensoes da imagem
-(rows, cols, depth) = img.shape
+(rows, cols, depth) = image.shape
 
 # varre todos os pixels
 for row in range(rows):
