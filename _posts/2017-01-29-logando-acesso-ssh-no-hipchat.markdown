@@ -153,7 +153,7 @@ Até a proxima.
 
 [man pam_exec](https://linux.die.net/man/8/pam_exec)
 
-[Pluggable Authentication Module for Linuz](http://www.linuxjournal.com/article/2120)
+[Pluggable Authentication Module for Linux](http://www.linuxjournal.com/article/2120)
 
 [Posting successful ssh logins to slack](http://sandrinodimattia.net/posting-successful-ssh-logins-to-slack/)
 
