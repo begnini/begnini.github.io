@@ -580,8 +580,6 @@ Com esse experimento, foi possível tirar 2 conclusões:
 
 2. Deep Learning é muito poderosa no processamento de imagens e reconhecimento de padrões. Parece obvio, mas quando se compara as técnicas anteriores de visão computacional com as atuais (ou nem tão atuais - as técnicas usadas aqui tem mais de 5 anos), é possível ver a superioridade tanto na acurácia quanto na simplicidade para resolver um problema.
 
-Como sempre que possível, está disponivel os [arquivos](/files/2020-02-23-quebrando-captcha-com-deep-learning/images.tar.gz) com que trabalhei para descrever o post.
-
 <br />
 
 ### Apendice - Uma rede mais eficiente
