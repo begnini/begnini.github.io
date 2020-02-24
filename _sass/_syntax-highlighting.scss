@@ -70,21 +70,3 @@
     .il    { color: #099 } // Literal.Number.Integer.Long
 }
 
-.highlight table {
-    margin-bottom: 0px !important;
-    width: 100% !important;
-    font-size: 100% !important;
-    border: 0px !important;
-}
-
-.highlight td,
-.highlight th {
-  padding: 0px !important;
-  border: 0px !important;
-}
-
-
-.highlight tbody tr:nth-child(odd) td,
-.highlight tbody tr:nth-child(odd) th {
-  background-color: #eef;
-}

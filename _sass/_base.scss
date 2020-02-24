@@ -129,10 +129,10 @@ blockquote {
  */
 pre,
 code {
-    font-size: 15px;
+    font-size: 14px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: #fcfcfc;
 }
 
 code {
@@ -223,4 +223,28 @@ th {
 tbody tr:nth-child(odd) td,
 tbody tr:nth-child(odd) th {
   background-color: #f9f9f9;
+}
+
+
+.highlight table {
+    margin-bottom: 0px !important;
+    width: 100% !important;
+    font-size: 100% !important;
+    border: 0px !important;
+}
+
+.highlight td,
+.highlight th {
+  padding: 0px !important;
+  border: 0px !important;
+}
+
+
+.highlight tbody tr:nth-child(odd) td,
+.highlight tbody tr:nth-child(odd) th {
+  background-color: #fcfcfc;
+}
+
+.highlight pre {
+    margin-bottom: 0px !important;
 }
